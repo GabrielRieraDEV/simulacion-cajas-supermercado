@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, Callable, Generator, Optional
 
 import simpy
 
+from .caja import CajaRegistradora, TipoCaja
 from .cliente import Cliente
 
 if TYPE_CHECKING:
@@ -41,3 +42,50 @@ def llegada_clientes(
             tiempo_maximo_espera=tiempo_max_espera,
         )
         supermercado.registrar_llegada(cliente)
+        supermercado.env.process(asignar_cliente_a_caja(supermercado, cliente))
+
+
+def asignar_cliente_a_caja(
+    supermercado: "Supermercado", cliente: Cliente
+) -> Generator[simpy.events.Event, None, None]:
+    """Gestiona la cola y asignación del cliente a la caja seleccionada."""
+
+    caja = seleccionar_caja_para_cliente(supermercado, cliente)
+    if caja is None or caja.recurso is None:
+        supermercado.metricas["clientes_abandonaron"] += 1
+        return
+
+    with caja.recurso.request() as solicitud:
+        espera_max = supermercado.env.timeout(cliente.tiempo_maximo_espera)
+        resultado = yield solicitud | espera_max
+
+        if solicitud not in resultado:
+            solicitud.cancel()
+            supermercado.metricas["clientes_abandonaron"] += 1
+            return
+
+        cliente.asignar_caja(caja.tipo.value)
+        tiempo_espera = supermercado.env.now - cliente.tiempo_llegada
+        supermercado.metricas["tiempo_acumulado_espera"] += tiempo_espera
+
+
+def seleccionar_caja_para_cliente(
+    supermercado: "Supermercado", cliente: Cliente
+) -> Optional[CajaRegistradora]:
+    """Aplica una regla simple para elegir el tipo de caja."""
+
+    if cliente.numero_productos <= 10:
+        for caja in supermercado.cajas:
+            if caja.tipo == TipoCaja.RAPIDA:
+                return caja
+
+    prioridad = [TipoCaja.AUTOMATICA, TipoCaja.TRADICIONAL]
+    for tipo in prioridad:
+        for caja in supermercado.cajas:
+            if caja.tipo == tipo:
+                return caja
+
+    for caja in supermercado.cajas:
+        return caja
+
+    return None
