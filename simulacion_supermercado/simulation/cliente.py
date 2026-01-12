@@ -13,6 +13,8 @@ class Cliente:
     tiempo_llegada: float
     tiempo_maximo_espera: float
     tipo_caja_asignada: Optional[str] = None
+    tiempo_inicio_servicio: Optional[float] = None
+    tiempo_salida: Optional[float] = None
 
     def asignar_caja(self, tipo_caja: str) -> None:
         """Actualiza el tipo de caja asignada al cliente."""

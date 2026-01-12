@@ -67,6 +67,23 @@ def asignar_cliente_a_caja(
         cliente.asignar_caja(caja.tipo.value)
         tiempo_espera = supermercado.env.now - cliente.tiempo_llegada
         supermercado.metricas["tiempo_acumulado_espera"] += tiempo_espera
+        cliente.tiempo_inicio_servicio = supermercado.env.now
+
+        yield supermercado.env.process(servicio_cliente(supermercado, caja, cliente))
+
+
+def servicio_cliente(
+    supermercado: "Supermercado",
+    caja: CajaRegistradora,
+    cliente: Cliente,
+) -> Generator[simpy.events.Event, None, None]:
+    """Simula el tiempo de servicio y salida del sistema."""
+
+    tiempo_atencion = max(0.1, caja.tiempo_servicio)
+    yield supermercado.env.timeout(tiempo_atencion)
+
+    cliente.tiempo_salida = supermercado.env.now
+    supermercado.metricas["clientes_procesados"] += 1
 
 
 def seleccionar_caja_para_cliente(
