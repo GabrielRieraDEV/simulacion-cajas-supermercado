@@ -15,6 +15,8 @@ class Cliente:
     tipo_caja_asignada: Optional[str] = None
     tiempo_inicio_servicio: Optional[float] = None
     tiempo_salida: Optional[float] = None
+    abandono: bool = False
+    motivo_abandono: Optional[str] = None
 
     def asignar_caja(self, tipo_caja: str) -> None:
         """Actualiza el tipo de caja asignada al cliente."""

@@ -52,7 +52,7 @@ def asignar_cliente_a_caja(
 
     caja = seleccionar_caja_para_cliente(supermercado, cliente)
     if caja is None or caja.recurso is None:
-        supermercado.metricas["clientes_abandonaron"] += 1
+        registrar_abandono(supermercado, cliente, "sin_caja_disponible")
         return
 
     with caja.recurso.request() as solicitud:
@@ -61,7 +61,7 @@ def asignar_cliente_a_caja(
 
         if solicitud not in resultado:
             solicitud.cancel()
-            supermercado.metricas["clientes_abandonaron"] += 1
+            registrar_abandono(supermercado, cliente, "tiempo_excedido")
             return
 
         cliente.asignar_caja(caja.tipo.value)
@@ -106,3 +106,14 @@ def seleccionar_caja_para_cliente(
         return caja
 
     return None
+
+
+def registrar_abandono(
+    supermercado: "Supermercado", cliente: Cliente, motivo: str
+) -> None:
+    """Marca al cliente como abandono y actualiza métricas."""
+
+    cliente.abandono = True
+    cliente.motivo_abandono = motivo
+    cliente.tiempo_salida = supermercado.env.now
+    supermercado.metricas["clientes_abandonaron"] += 1
