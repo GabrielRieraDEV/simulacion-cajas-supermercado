@@ -38,6 +38,9 @@ def main() -> None:
 
     _mostrar_resultados(supermercado, escenario, args.duracion)
 
+    if args.visualizar:
+        _mostrar_visualizacion(supermercado, escenario)
+
 
 def _mostrar_resultados(
     supermercado: Supermercado, escenario: Escenario, duracion: float
@@ -102,6 +105,17 @@ def _mostrar_escenarios_disponibles(escenarios: Dict[str, Escenario]) -> None:
         print(f"- {clave}: {escenario.descripcion}")
 
 
+def _mostrar_visualizacion(supermercado: Supermercado, escenario: Escenario) -> None:
+    try:
+        from simulacion_supermercado.ui.pygame_view import PygameVisualizer
+    except RuntimeError as exc:
+        print(f"No fue posible iniciar la visualización: {exc}")
+        return
+
+    visualizer = PygameVisualizer(escenario=escenario, clientes=supermercado.clientes_generados)
+    visualizer.run()
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Simulador del sistema de cajas del supermercado"
@@ -122,6 +136,11 @@ def _parse_args() -> argparse.Namespace:
         "--seed",
         type=int,
         help="Semilla para los generadores aleatorios",
+    )
+    parser.add_argument(
+        "--visualizar",
+        action="store_true",
+        help="Muestra una visualización básica en Pygame al finalizar la simulación",
     )
     return parser.parse_args()
 
