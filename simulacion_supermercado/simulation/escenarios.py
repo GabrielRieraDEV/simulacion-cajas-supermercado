@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Mapping
 
 from .caja import CajaRegistradora, TipoCaja
-from .config import (
+from ..config import (
     DEFAULT_CONFIG,
     TASA_LLEGADA_FIN_DE_MES,
     TASA_LLEGADA_NORMAL,

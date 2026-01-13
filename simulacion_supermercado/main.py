@@ -13,6 +13,7 @@ from simulacion_supermercado.simulation.escenarios import (
     todos_los_escenarios,
 )
 from simulacion_supermercado.simulation.supermercado import Supermercado
+from simulacion_supermercado.ui.panel import ControlPanel
 
 
 def main() -> None:
@@ -27,6 +28,10 @@ def main() -> None:
         raise SystemExit(1)
 
     escenario = escenarios[args.escenario]
+
+    if args.panel:
+        panel = ControlPanel(escenario)
+        escenario = panel.lanzar()
     supermercado = Supermercado(
         configuracion=dict(escenario.configuracion),
         cajas_base=escenario.cajas,
@@ -141,6 +146,11 @@ def _parse_args() -> argparse.Namespace:
         "--visualizar",
         action="store_true",
         help="Muestra una visualización básica en Pygame al finalizar la simulación",
+    )
+    parser.add_argument(
+        "--panel",
+        action="store_true",
+        help="Abre un panel interactivo para ajustar el escenario antes de simular",
     )
     return parser.parse_args()
 

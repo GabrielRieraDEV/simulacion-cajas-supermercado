@@ -55,21 +55,22 @@ def asignar_cliente_a_caja(
         registrar_abandono(supermercado, cliente, "sin_caja_disponible")
         return
 
-    with caja.recurso.request() as solicitud:
-        espera_max = supermercado.env.timeout(cliente.tiempo_maximo_espera)
-        resultado = yield solicitud | espera_max
+    solicitud = caja.recurso.request()
+    espera_max = supermercado.env.timeout(cliente.tiempo_maximo_espera)
+    resultado = yield solicitud | espera_max
 
-        if solicitud not in resultado:
-            solicitud.cancel()
-            registrar_abandono(supermercado, cliente, "tiempo_excedido")
-            return
+    if solicitud not in resultado:
+        solicitud.cancel()
+        registrar_abandono(supermercado, cliente, "tiempo_excedido")
+        return
 
-        cliente.asignar_caja(caja.tipo.value)
-        tiempo_espera = supermercado.env.now - cliente.tiempo_llegada
-        supermercado.metricas["tiempo_acumulado_espera"] += tiempo_espera
-        cliente.tiempo_inicio_servicio = supermercado.env.now
+    cliente.asignar_caja(caja.tipo.value)
+    tiempo_espera = supermercado.env.now - cliente.tiempo_llegada
+    supermercado.metricas["tiempo_acumulado_espera"] += tiempo_espera
+    cliente.tiempo_inicio_servicio = supermercado.env.now
 
-        yield supermercado.env.process(servicio_cliente(supermercado, caja, cliente))
+    yield supermercado.env.process(servicio_cliente(supermercado, caja, cliente))
+    caja.recurso.release(solicitud)
 
 
 def servicio_cliente(
