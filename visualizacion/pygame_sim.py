@@ -89,7 +89,7 @@ class VisualizadorPygame:
                 personaje_path = os.path.join(RESOURCE_DIR, f"personaje {i}.png")
                 if os.path.exists(personaje_path):
                     img = pygame.image.load(personaje_path)
-                    self.sprites[f"cliente_{i}"] = pygame.transform.scale(img, (64, 64))
+                    self.sprites[f"cliente_{i}"] = pygame.transform.scale(img, (80, 80))
                 else:
                     self.sprites[f"cliente_{i}"] = None
             

@@ -1,0 +1,65 @@
+======================================================================
+REPORTE DE SIMULACIÓN - SUPERMERCADO SUPERLATINO
+Fecha: 2026-01-14 09:32
+======================================================================
+
+RESUMEN DE ESCENARIOS EVALUADOS
+----------------------------------------
+
+📌 100_TRADICIONAL
+   Configuración: H:6 A:0 R:0
+   Política: balanceada
+   Demanda: Normal
+   
+   Clientes atendidos: 203
+   Abandonos: 14 (6.5%)
+   Tiempo espera promedio: 2.61 min
+   Throughput: 25.4 clientes/hora
+   Costo operacional: $30.00/hora
+   Eficiencia: 0.85
+
+📌 50_50_HIBRIDO
+   Configuración: H:3 A:3 R:0
+   Política: balanceada
+   Demanda: Normal
+   
+   Clientes atendidos: 235
+   Abandonos: 15 (6.0%)
+   Tiempo espera promedio: 2.60 min
+   Throughput: 29.4 clientes/hora
+   Costo operacional: $26.00/hora
+   Eficiencia: 1.13
+
+📌 HIBRIDO_CON_RAPIDAS
+   Configuración: H:3 A:2 R:2
+   Política: balanceada
+   Demanda: Normal
+   
+   Clientes atendidos: 205
+   Abandonos: 18 (8.1%)
+   Tiempo espera promedio: 2.25 min
+   Throughput: 25.6 clientes/hora
+   Costo operacional: $35.00/hora
+   Eficiencia: 0.73
+
+📌 AUTOMATIZADO
+   Configuración: H:1 A:4 R:2
+   Política: balanceada
+   Demanda: Normal
+   
+   Clientes atendidos: 155
+   Abandonos: 50 (24.4%)
+   Tiempo espera promedio: 2.66 min
+   Throughput: 19.4 clientes/hora
+   Costo operacional: $27.00/hora
+   Eficiencia: 0.72
+
+
+RECOMENDACIONES
+----------------------------------------
+  🕐 Para minimizar tiempo de espera: hibrido_con_rapidas (2.2 min promedio)
+  🚶 Para reducir abandonos: 50_50_hibrido (6.0% tasa de abandono)
+  💰 Mejor relación costo-eficiencia: 50_50_hibrido (eficiencia: 1.13)
+  📈 Mayor capacidad de atención: 50_50_hibrido (29 clientes/hora)
+
+======================================================================
