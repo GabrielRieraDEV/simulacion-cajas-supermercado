@@ -1,5 +1,5 @@
 Escenario,Cajas Humanas,Cajas Auto,Cajas Rápidas,Política,Alta Demanda,Clientes Atendidos,Abandonos,Tasa Abandono (%),Espera Promedio (min),Espera Máxima (min),Throughput (cli/hora),Costo/hora ($),Costo/cliente ($),Eficiencia
-100_tradicional,6,0,0,balanceada,,203,14,6.5,2.61,11.14,25.4,30.0,1.18,0.85
-50_50_hibrido,3,3,0,balanceada,,235,15,6.0,2.6,13.85,29.4,26.0,0.89,1.13
-hibrido_con_rapidas,3,2,2,balanceada,,205,18,8.1,2.25,12.5,25.6,35.0,1.37,0.73
-automatizado,1,4,2,balanceada,,155,50,24.4,2.66,12.36,19.4,27.0,1.39,0.72
+100_tradicional,6,0,0,balanceada,,225,27,10.7,2.35,11.32,28.1,30.0,1.07,0.94
+50_50_hibrido,3,3,0,balanceada,,202,17,7.8,2.8,13.39,25.2,26.0,1.03,0.97
+hibrido_con_rapidas,3,2,2,balanceada,,211,17,7.5,1.99,11.44,26.4,35.0,1.33,0.75
+automatizado,1,4,2,balanceada,,189,64,25.3,2.73,13.85,23.6,27.0,1.14,0.88

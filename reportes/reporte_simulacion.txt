@@ -1,6 +1,6 @@
 ======================================================================
 REPORTE DE SIMULACIÓN - SUPERMERCADO SUPERLATINO
-Fecha: 2026-01-14 09:32
+Fecha: 2026-01-21 09:44
 ======================================================================
 
 RESUMEN DE ESCENARIOS EVALUADOS
@@ -11,55 +11,55 @@ RESUMEN DE ESCENARIOS EVALUADOS
    Política: balanceada
    Demanda: Normal
    
-   Clientes atendidos: 203
-   Abandonos: 14 (6.5%)
-   Tiempo espera promedio: 2.61 min
-   Throughput: 25.4 clientes/hora
+   Clientes atendidos: 225
+   Abandonos: 27 (10.7%)
+   Tiempo espera promedio: 2.35 min
+   Throughput: 28.1 clientes/hora
    Costo operacional: $30.00/hora
-   Eficiencia: 0.85
+   Eficiencia: 0.94
 
 📌 50_50_HIBRIDO
    Configuración: H:3 A:3 R:0
    Política: balanceada
    Demanda: Normal
    
-   Clientes atendidos: 235
-   Abandonos: 15 (6.0%)
-   Tiempo espera promedio: 2.60 min
-   Throughput: 29.4 clientes/hora
+   Clientes atendidos: 202
+   Abandonos: 17 (7.8%)
+   Tiempo espera promedio: 2.80 min
+   Throughput: 25.2 clientes/hora
    Costo operacional: $26.00/hora
-   Eficiencia: 1.13
+   Eficiencia: 0.97
 
 📌 HIBRIDO_CON_RAPIDAS
    Configuración: H:3 A:2 R:2
    Política: balanceada
    Demanda: Normal
    
-   Clientes atendidos: 205
-   Abandonos: 18 (8.1%)
-   Tiempo espera promedio: 2.25 min
-   Throughput: 25.6 clientes/hora
+   Clientes atendidos: 211
+   Abandonos: 17 (7.5%)
+   Tiempo espera promedio: 1.99 min
+   Throughput: 26.4 clientes/hora
    Costo operacional: $35.00/hora
-   Eficiencia: 0.73
+   Eficiencia: 0.75
 
 📌 AUTOMATIZADO
    Configuración: H:1 A:4 R:2
    Política: balanceada
    Demanda: Normal
    
-   Clientes atendidos: 155
-   Abandonos: 50 (24.4%)
-   Tiempo espera promedio: 2.66 min
-   Throughput: 19.4 clientes/hora
+   Clientes atendidos: 189
+   Abandonos: 64 (25.3%)
+   Tiempo espera promedio: 2.73 min
+   Throughput: 23.6 clientes/hora
    Costo operacional: $27.00/hora
-   Eficiencia: 0.72
+   Eficiencia: 0.88
 
 
 RECOMENDACIONES
 ----------------------------------------
-  🕐 Para minimizar tiempo de espera: hibrido_con_rapidas (2.2 min promedio)
-  🚶 Para reducir abandonos: 50_50_hibrido (6.0% tasa de abandono)
-  💰 Mejor relación costo-eficiencia: 50_50_hibrido (eficiencia: 1.13)
-  📈 Mayor capacidad de atención: 50_50_hibrido (29 clientes/hora)
+  🕐 Para minimizar tiempo de espera: hibrido_con_rapidas (2.0 min promedio)
+  🚶 Para reducir abandonos: hibrido_con_rapidas (7.5% tasa de abandono)
+  💰 Mejor relación costo-eficiencia: 50_50_hibrido (eficiencia: 0.97)
+  📈 Mayor capacidad de atención: 100_tradicional (28 clientes/hora)
 
 ======================================================================
